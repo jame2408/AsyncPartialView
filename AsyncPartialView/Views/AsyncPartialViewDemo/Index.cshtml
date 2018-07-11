@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Async Partial View Demo";
+}
+
+<div class="alert alert-info">
+    <p class="lead">示範非同步使用 PartialView</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        @*區塊 A*@
+        <div class="Area_A">
+            <div class="asyncContents" data-url="/AsyncPartialViewDemo/Area_A">
+                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i> Loading ...
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        @*區塊 B*@
+        <div class="Area_B">
+            <div class="asyncContents" data-url="/AsyncPartialViewDemo/Area_B">
+                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i> Loading ...
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        @*區塊 C*@
+        <div class="Area_C">
+            <div class="asyncContents" data-url="/AsyncPartialViewDemo/Area_C">
+                <i class="fa fa-spinner fa-spin" style="font-size:24px"></i> Loading ...
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            LoadWeeklyReport();
+        });
+
+        //非同步載入畫面
+        function LoadWeeklyReport() {
+            $(".asyncContents").each(function (index, item) {
+                var url = $(item).data('url');
+                if (url && url.length > 0) {
+                    $(item).load(url, function (response, status, xhr) {
+                        if (status === 'error')
+                            $(item).html(xhr.status + xhr.statusText);
+                    });
+                }
+            });
+        }
+    </script>
+}
