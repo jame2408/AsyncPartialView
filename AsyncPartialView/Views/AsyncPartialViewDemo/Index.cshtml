@@ -37,11 +37,11 @@
 {
     <script>
         $(function () {
-            LoadWeeklyReport();
+            Loading();
         });
 
         //非同步載入畫面
-        function LoadWeeklyReport() {
+        function Loading() {
             $(".asyncContents").each(function (index, item) {
                 var url = $(item).data('url');
                 if (url && url.length > 0) {
